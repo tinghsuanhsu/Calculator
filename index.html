@@ -7,37 +7,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Calculator</h1>
     <div class="container">
-        <div class="calculator-input">
-            Display
-        </div>
-
         <div class="calculator-wrapper">
-            <button class="js-number" id="js-one">7</button>
-            <button class="js-number" id="js-two">8</button>
-            <button class="js-number" id="js-three">9</button>
-            <button class="js-number" id="js-three">c</button>
-
+            <span class="js-display">Display Result</span>
+            <button class="js-key" data-all-clear="c">c</button>
+            <button class="js-key" data-delete>DEL</button>
         </div>
         <div class="calculator-wrapper">
-            <button class="js-number" id="js-four">4</button>
-            <button class="js-number" id="js-five">5</button>
-            <button class="js-number" id="js-six">6</button>
-            <button class="js-number" id="js-add">+</button>
+            <button class="js-key" data-key="7">7</button>
+            <button class="js-key" data-key="8">8</button>
+            <button class="js-key" data-key="9">9</button>
+            <button class="js-operation" data-key="+">+</button>
         </div>
         <div class="calculator-wrapper">
-            <button class="js-number" id="js-three">3</button>
-            <button class="js-number" id="js-two">2</button>
-            <button class="js-number" id="js-one">1</button>
-            <button class="js-number" id="js-subtract">-</button>
+            <button class="js-key" data-key="4">4</button>
+            <button class="js-key" data-key="5">5</button>
+            <button class="js-key" data-key="6">6</button>
+            <button class="js-operation" data-key="-">-</button>
         </div>
         <div class="calculator-wrapper">
-
-            <button class="js-number" id="js-zero">0</button>
-            <button class="js-number" id="js-period">.</button>
-            <button class="js-number" id="js-multiply">*</button>
-            <button class="js-number" id="js-divide">/</button>
-
+            <button class="js-key" data-key="3">3</button>
+            <button class="js-key" data-key="2">2</button>
+            <button class="js-key" data-key="1">1</button>
+            <button class="js-operation" data-key="*">*</button>
+        </div>
+        <div class="calculator-wrapper">
+            <button class="js-key" data-key="0">0</button>
+            <button class="js-period" data-key=".">.</button>
+            <button class="js-equal" data-key="=">=</button>
+            <button class="js-operation" data-key="/">/</button>
         </div>
     </div>
 </body>
