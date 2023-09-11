@@ -15,7 +15,7 @@ class Calculator{
         
         if (this.previousValue !== '' && this.currentValue === ''){
             this.calculatorDisplay.innerText = parseFloat(this.previousValue).toLocaleString();
-        } else if (this.currentValue !== '' && this.currentValue !== '.'){
+        } else if (this.currentValue !== '' && this.currentValue !== '. ') {
             this.calculatorDisplay.innerText = parseFloat(this.currentValue).toLocaleString();
         } else {
             this.calculatorDisplay.innerText = this.currentValue;
@@ -51,7 +51,11 @@ class Calculator{
                 this.currentValue = prevNumber * currNumber;
                 break
             case '/':
-                this.currentValue = prevNumber / currNumber;
+                if (currNumber > 0) {
+                    this.currentValue = prevNumber / currNumber
+                } else {
+                    this.currentValue = 'Error'
+                };
                 break
         }   
         
