@@ -1,4 +1,84 @@
+class Calculator{
+    constructor(calculatorDisplay) {
+        this.calculatorDisplay = calculatorDisplay
+        this.clearAll();
+    }
 
+
+    clearAll() {
+        this.previousValue = '';
+        this.currentValue = '';
+        this.operation = '';
+    }   
+
+    updateDisplay() {
+        
+        if (this.previousValue !== '' && this.currentValue === ''){
+            this.calculatorDisplay.innerText = parseFloat(this.previousValue).toLocaleString();
+        } else if (this.currentValue !== '' && this.currentValue !== '.'){
+            this.calculatorDisplay.innerText = parseFloat(this.currentValue).toLocaleString();
+        } else {
+            this.calculatorDisplay.innerText = this.currentValue;
+        }
+
+    }
+
+    chooseNumber(number) {
+        if (number === '.' && this.currentValue.includes('.')) return this.currentValue
+        else {
+
+            this.currentValue = this.currentValue.toString() + number.toString();
+            console.log(`this current value ${this.currentValue}, number ${number}`)
+            console.log(`this previous value ${this.previousValue}, number ${number}`)
+
+
+        }
+    }
+
+    calculate() {
+        // what if there is previous value but no current value
+        const prevNumber = parseFloat(this.previousValue);
+        const currNumber = parseFloat(this.currentValue);
+
+        switch (this.operation) {
+            case '+':
+                this.currentValue = prevNumber + currNumber;
+                break
+            case '-':
+                this.currentValue = prevNumber - currNumber;
+                break
+            case '*':
+                this.currentValue = prevNumber * currNumber;
+                break
+            case '/':
+                this.currentValue = prevNumber / currNumber;
+                break
+        }   
+        
+        this.operation = ''
+        this.previousValue = ''
+    }
+
+
+    chooseOperation(operation) {      
+        if (this.previousValue !== '' && this.currentValue === '') return
+        if (this.previousValue !== '') {
+            this.calculate();
+        }
+
+        this.operation = operation;
+        this.previousValue = this.currentValue;
+        this.currentValue = '';
+    }
+
+    deleteNumber(){
+        if (this.currentValue.length > 0) {
+            this.currentValue = this.currentValue.slice(0, -1);
+        }
+    }
+
+
+}
 
 
 const calculatorDisplay = document.querySelector('[data-current-result]');
@@ -7,97 +87,39 @@ const deleteKey = document.querySelector('[data-delete]');
 const operationKey = document.querySelectorAll('[data-operation]');
 const equalKey = document.querySelector('[data-equal]');
 const clearKey = document.querySelector('[data-all-clear]');
-let previousValue;
-let currentValue = '';
-let number;
-let operation;
+const calculator = new Calculator(calculatorDisplay)
 
-function updateDisplay() {
-    calculatorDisplay.textContent = currentValue;
-}
-
-function clearAll() {
-    // clear the display
-    previousValue = '';
-    currentValue = '';
-    operation = '';
-
-}
-
-function chooseNumber(e) {
-    number = e.target.dataset.key;
-    if (number === '.' && currentValue.includes('.')) return currentValue
-    else {
-        currentValue = currentValue.toString() + number.toString();
-    }
-    
-}
-
-function calculate() {
-   
-    prevNumber = parseFloat(previousValue);
-    currNumber = parseFloat(currentValue);
-    console.log(operation, prevNumber, currNumber);
-    switch (operation) {
-        case '+':
-            currentValue = prevNumber + currNumber;
-            return currentValue
-        case '-':
-            currentValue = prevNumber - currNumber;
-            return currentValue
-        case '*':
-            currentValue = prevNumber * currNumber;
-            return currentValue
-        case '/':
-            currentValue = prevNumber / currNumber;
-            return currentValue
-    }    
-}
-
-
-function chooseOperation(e) {
-    operation = e.target.dataset.operation;
-    console.log(operation);
-    previousValue = currentValue;
-    currentValue = '';
-}
-
-function deleteNumber(){
-    if (currentValue.length > 0) {
-        currentValue = currentValue.slice(0, -1);
-    }
-}
 
 numberKey.forEach(key => {
-    key.addEventListener('click', function(e) {
-        chooseNumber(e);
-        updateDisplay();
+    key.addEventListener('click', () => {
+        calculator.chooseNumber(key.innerText);
+        calculator.updateDisplay();
     });
 })
 
 clearKey.addEventListener('click', () => {
-        clearAll();
-        updateDisplay();
+        calculator.clearAll();
+        calculator.updateDisplay();
     }
 )
 
 
 operationKey.forEach(key => {
-    key.addEventListener('click', function(e) {
-        chooseOperation(e);
-        updateDisplay();
+    key.addEventListener('click', () => {
+        calculator.chooseOperation(key.innerText);
+        calculator.updateDisplay();
     });
 })
 
 equalKey.addEventListener('click', () => {
-    calculate();
-    updateDisplay();
+    calculator.calculate();
+    calculator.updateDisplay();
 
 })
 
 deleteKey.addEventListener('click', () => {
-    deleteNumber();
-    updateDisplay();
+    calculator.deleteNumber();
+    calculator.updateDisplay();
 })
 // updateDisplay();
 // clearAll();
